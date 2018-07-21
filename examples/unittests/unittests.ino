@@ -15,9 +15,16 @@
 #define POWER_PIN (11)
 #define ACK_PIN   (13)    // Blue LED on weakly when ACK is *not* set
 
-// Globals
-Adafruit_VEML6070 uv = Adafruit_VEML6070();
 
+Adafruit_VEML6070 uv = Adafruit_VEML6070(&Wire);
+
+/*
+#define BUFFER_LENGTH   1
+uint8_t i2cBuf[BUFFER_LENGTH] = {0};
+SoftWire i2c(SDA, SCL);
+
+Adafruit_VEML6070 uv = Adafruit_VEML6070(&i2c);
+*/
 
 bool i2c_ready(){
   return (digitalRead(SDA) == HIGH) && (digitalRead(SCL) == HIGH);
@@ -126,8 +133,12 @@ test(3_read_with_power_cycles) {
 
 void setup() {
   delay(1000); // wait for stability on some boards to prevent garbage Serial
-  Serial.begin(115200);
+  Serial.begin(9600);
   while(!Serial); // for the Arduino Leonardo/Micro only
+
+  i2c.setRxBuffer(i2cBuf, BUFFER_LENGTH);
+  i2c.setTxBuffer(i2cBuf, BUFFER_LENGTH);
+  i2c.setTimeout_ms(10);
 
   pinMode(POWER_PIN, OUTPUT);
   digitalWrite(POWER_PIN, HIGH);
