@@ -19,7 +19,7 @@
 
 #define BUFFER_LENGTH   1
 uint8_t i2cBuf[BUFFER_LENGTH] = {0};
-SoftWire i2c(SDA, SCL);
+SoftWire i2c = SoftWire(SDA, SCL);
 Adafruit_VEML6070 uv = Adafruit_VEML6070();
 
 
