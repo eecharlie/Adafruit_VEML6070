@@ -20,7 +20,7 @@
 #define BUFFER_LENGTH   1
 uint8_t i2cBuf[BUFFER_LENGTH] = {0};
 SoftWire i2c(SDA, SCL);
-Adafruit_VEML6070<SoftWire> uv = Adafruit_VEML6070<SoftWire>(&i2c);
+Adafruit_VEML6070 uv = Adafruit_VEML6070();
 
 
 void setup() {
@@ -31,7 +31,7 @@ void setup() {
   i2c.setTxBuffer(i2cBuf, BUFFER_LENGTH);
   i2c.setTimeout_ms(10);
   
-  uv.begin(VEML6070_1_T);  // pass in the integration time constant
+  uv.begin(VEML6070_1_T, &i2c);  // pass in the integration time constant
 }
 
 
