@@ -19,8 +19,8 @@
 #define USE_SOFTWIRE
 
 #ifdef USE_SOFTWIRE
-  #define BUFFER_LENGTH   8
-  uint8_t i2cBuf[BUFFER_LENGTH] = {0};
+  #define SW_BUFFER_LENGTH   8
+  uint8_t i2cBuf[SW_BUFFER_LENGTH] = {0};
   SoftWire *i2c = &SoftWire(SDA, SCL);
 #else
   //TwoWire* i2c = &Wire;
@@ -142,8 +142,8 @@ void setup() {
   while(!Serial); // for the Arduino Leonardo/Micro only
 
 #ifdef USE_SOFTWIRE
-  i2c->setRxBuffer(i2cBuf, BUFFER_LENGTH);
-  i2c->setTxBuffer(i2cBuf, BUFFER_LENGTH);
+  i2c->setRxBuffer(i2cBuf, SW_BUFFER_LENGTH);
+  i2c->setTxBuffer(i2cBuf, SW_BUFFER_LENGTH);
   i2c->setTimeout_ms(10);
   Serial.println("Set i2c buffer"); Serial.flush();
 #endif
